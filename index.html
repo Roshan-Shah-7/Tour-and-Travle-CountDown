@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Luxe Travel | Coming Soon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #d4a76a;
+            --accent: #3a7ca5;
+            --light: #f8f5f2;
+            --dark: #0d1b2a;
+            --text: #333;
+            --overlay: rgba(26, 54, 93, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            background: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--light);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--overlay);
+            z-index: 0;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 1rem;
+        }
+
+        header {
+            margin-bottom: 1.5rem;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .logo {
+            width: clamp(80px, 12vw, 150px);
+            height: clamp(80px, 12vw, 150px);
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--secondary);
+            /* margin-bottom: clamp(0.5rem, 2vw, 1.5rem); */
+            transition: transform 0.3s ease;
+            background: white;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            width: 75%;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 5vw, 2.2rem);
+            /* margin-bottom: clamp(0.5rem, 2vw, 1rem); */
+            font-weight: 700;
+            background: linear-gradient(to right, var(--secondary), var(--light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: clamp(.8rem, 2.5vw, 1rem);
+            /* margin-bottom: clamp(1rem, 3vw, 2rem); */
+            font-weight: 300;
+            max-width: 800px;
+            line-height: 1.5;
+        }
+
+        .countdown-container {
+            width: 100%;
+            max-width: 800px;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        .countdown-title {
+            font-size: clamp(0.8rem, 2vw, 1.2rem);
+            /* margin-bottom: clamp(0.8rem, 2vw, 1.5rem); */
+            font-weight: 400;
+            color: var(--secondary);
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            flex: 0 0 calc(25% - 1rem);
+            min-width: 80px;
+            perspective: 1000px;
+        }
+
+        .countdown-number {
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.1);
+            padding: clamp(0.8rem, 1.5vw, 1.5rem);
+            border-radius: 8px;
+            /* margin-bottom: clamp(0.3rem, 1vw, 0.5rem); */
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            color: var(--secondary);
+        }
+
+        .countdown-number::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+            z-index: -1;
+        }
+
+        .countdown-label {
+            font-size: clamp(0.7rem, 1.5vw, 1rem);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .motivational-message {
+            font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+            margin: clamp(1rem, 2vw, 2rem) 0;
+            font-style: italic;
+            min-height: 40px;
+            animation: fadeIn 1s ease-in-out;
+            color: var(--secondary);
+        }
+
+        .signup-form {
+            width: 100%;
+            max-width: 500px;
+            margin: clamp(1rem, 2vw, 2rem) auto;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+
+        .form-group input {
+            padding: clamp(0.8rem, 1.5vw, 1rem);
+            border: none;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            padding: clamp(0.8rem, 1.5vw, 1rem) clamp(1rem, 3vw, 2rem);
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            border-radius: 4px;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .travel-icons {
+            display: flex;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 2rem);
+            margin: clamp(1rem, 3vw, 3rem) 0;
+            flex-wrap: wrap;
+        }
+
+        .travel-icon {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--secondary);
+            animation: float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .travel-icon:hover {
+            transform: scale(1.2);
+            color: var(--light);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: clamp(1rem, 2vw, 2rem) 0;
+            width: 100%;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: clamp(0.5rem, 1vw, 1rem);
+        }
+
+        .social-link {
+            color: var(--light);
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Validation styles */
+        .error {
+            color: #ff6b6b;
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            text-align: left;
+            margin-top: 0.2rem;
+            display: none;
+        }
+
+        .form-group.error input {
+            box-shadow: 0 0 0 2px #ff6b6b;
+        }
+
+        .form-group.success input {
+            box-shadow: 0 0 0 2px #51cf66;
+        }
+
+        /* Compass Animation */
+        .compass {
+            position: absolute;
+            width: clamp(60px, 8vw, 100px);
+            height: clamp(60px, 8vw, 100px);
+            right: clamp(20px, 3vw, 50px);
+            bottom: clamp(20px, 3vw, 50px);
+            opacity: 0.7;
+            animation: spin 20s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Dynamic scaling for very small screens */
+        @media (max-height: 600px) {
+            .content-wrapper {
+                transform: scale(0.9);
+                transform-origin: center;
+            }
+
+            h1{
+                font-size: .5rem;
+            }
+
+            .travel-icons {
+                margin: 0.5rem 0;
+            }
+
+            footer {
+                padding: 0.5rem 0;
+            }
+        }
+
+        @media (max-height: 500px) {
+            .content-wrapper {
+                transform: scale(0.8);
+            }
+
+            h1{
+                font-size: .5rem;
+            }
+
+            .countdown-container {
+                margin: 0.5rem 0;
+            }
+        }
+
+        /* Show compass on larger screens */
+        @media (min-width: 1024px) {
+            .compass {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay"></div>
+
+    <div class="main-container">
+        <div class="content-wrapper">
+            <header>
+                <div class="logo">
+                    <img src="./logo.png" alt="">
+                </div>
+                <h1>Astrapi Tours & Travels</h1>
+                <p class="subtitle">Embark on extraordinary journeys crafted for the discerning traveler. Our luxury
+                    travel experiences are launching soon.</p>
+            </header>
+
+            <div class="countdown-container">
+                <p class="countdown-title">DAYS UNTIL OUR NEXT GREAT ADVENTURE</p>
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days">00</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds">00</div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
+                </div>
+                <p class="motivational-message" id="motivational-message">Your next unforgettable journey is just around
+                    the corner...</p>
+            </div>
+
+            <div class="signup-form">
+                <h3>Be the first to experience our luxury travels</h3>
+                <form id="email-form">
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Enter your email address" required>
+                        <small class="error">Please enter a valid email address</small>
+                    </div>
+                    <button type="submit" class="btn">Notify Me</button>
+                </form>
+            </div>
+
+            <div class="travel-icons">
+                <i class="fas fa-plane travel-icon" style="animation-delay: 0s;"></i>
+                <i class="fas fa-umbrella-beach travel-icon" style="animation-delay: 0.5s;"></i>
+                <i class="fas fa-mountain travel-icon" style="animation-delay: 1s;"></i>
+                <i class="fas fa-hotel travel-icon" style="animation-delay: 1.5s;"></i>
+                <i class="fas fa-passport travel-icon" style="animation-delay: 2s;"></i>
+            </div>
+        </div>
+
+        <footer>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-pinterest-p"></i></a>
+            </div>
+            <p class="copyright">© 2023 Astrapi Tours & Travels. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZDRhNzZhIiBkPSJNMjU2IDhDMTE5IDggOCAxMTkgOCAyNTZzMTExIDI0OCAyNDggMjQ4IDI0OC0xMTEgMjQ4LTI0OFMzOTMgOCAyNTYgOHptMCA0NDhjLTExMC41IDAtMjAwLTg5LjUtMjAwLTIwMFMxNDUuNSA1NiAyNTYgNTZzMjAwIDg5LjUgMjAwIDIwMC04OS41IDIwMC0yMDAgMjAwem0wLTM0NGMtMTcuNyAwLTMyIDE0LjMtMzIgMzJzMTQuMyAzMiAzMiAzMiAzMi0xNC4zIDMyLTMyLTE0LjMtMzItMzItMzJ6bTAgMTI4Yy0xNy43IDAtMzIgMTQuMy0zMiAzMnYxMTJjMCAxNy43IDE0LjMgMzIgMzIgMzJzMzItMTQuMyAzMi0zMlYxNjhjMC0xNy43LTE0LjMtMzItMzItMzJ6Ii8+PC9zdmc+"
+        alt="Compass" class="compass" id="compass">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set launch date (3 months from now)
+            const launchDate = new Date();
+            launchDate.setMonth(launchDate.getMonth() + 1);
+
+            // Check localStorage for saved countdown
+            const savedCountdown = localStorage.getItem('luxeTravelCountdown');
+            let targetDate;
+
+            if (savedCountdown) {
+                targetDate = new Date(parseInt(savedCountdown));
+                // If saved date is in the past, set new one
+                if (targetDate < new Date()) {
+                    targetDate = launchDate;
+                    localStorage.setItem('luxeTravelCountdown', targetDate.getTime());
+                }
+            } else {
+                targetDate = launchDate;
+                localStorage.setItem('luxeTravelCountdown', targetDate.getTime());
+            }
+
+            // Countdown function
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                // Time calculations
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display results with animation
+                animateNumber('days', days);
+                animateNumber('hours', hours);
+                animateNumber('minutes', minutes);
+                animateNumber('seconds', seconds);
+
+                // Update motivational message
+                updateMotivationalMessage(distance);
+
+                // If countdown is finished
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('days').innerHTML = '00';
+                    document.getElementById('hours').innerHTML = '00';
+                    document.getElementById('minutes').innerHTML = '00';
+                    document.getElementById('seconds').innerHTML = '00';
+                    document.getElementById('motivational-message').innerHTML = "We're live! Start your journey now.";
+                }
+            }
+
+            // Animate number change
+            function animateNumber(elementId, newValue) {
+                const element = document.getElementById(elementId);
+                const currentValue = parseInt(element.textContent);
+
+                if (newValue !== currentValue) {
+                    element.style.animation = 'none';
+                    void element.offsetWidth; // Trigger reflow
+                    element.style.animation = 'pulse 0.5s ease';
+                    element.textContent = newValue < 10 ? '0' + newValue : newValue;
+                }
+            }
+
+            // Update motivational message based on time remaining
+            function updateMotivationalMessage(distance) {
+                const messages = [
+                    { threshold: Infinity, message: "Your next unforgettable journey is just around the corner..." },
+                    { threshold: 30 * 24 * 60 * 60 * 1000, message: "Adventure awaits! Final preparations are underway." },
+                    { threshold: 14 * 24 * 60 * 60 * 1000, message: "The countdown to luxury begins! Pack your bags soon." },
+                    { threshold: 7 * 24 * 60 * 60 * 1000, message: "One week until we reveal extraordinary destinations!" },
+                    { threshold: 24 * 60 * 60 * 1000, message: "Tomorrow we embark! Get ready for the journey of a lifetime." },
+                    { threshold: 60 * 60 * 1000, message: "The adventure begins in less than an hour! Stay tuned." },
+                    { threshold: 0, message: "We're live! Your luxury travel experience awaits." }
+                ];
+
+                const messageElement = document.getElementById('motivational-message');
+                for (const msg of messages) {
+                    if (distance > msg.threshold) continue;
+                    if (messageElement.textContent !== msg.message) {
+                        messageElement.style.animation = 'fadeIn 1s ease-in-out';
+                        messageElement.textContent = msg.message;
+                    }
+                    break;
+                }
+            }
+
+            // Initialize countdown
+            updateCountdown();
+            const countdownInterval = setInterval(updateCountdown, 1000);
+
+            // Email form validation
+            const emailForm = document.getElementById('email-form');
+            const emailInput = document.getElementById('email');
+            const formGroup = emailInput.parentElement;
+
+            emailForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                if (validateEmail(emailInput.value)) {
+                    formGroup.classList.remove('error');
+                    formGroup.classList.add('success');
+                    alert('Thank you for your interest! We will notify you when we launch.');
+                    emailForm.reset();
+                    setTimeout(() => formGroup.classList.remove('success'), 3000);
+                } else {
+                    formGroup.classList.add('error');
+                    formGroup.querySelector('.error').style.display = 'block';
+                }
+            });
+
+            emailInput.addEventListener('input', function () {
+                if (validateEmail(emailInput.value)) {
+                    formGroup.classList.remove('error');
+                    formGroup.querySelector('.error').style.display = 'none';
+                }
+            });
+
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(String(email).toLowerCase());
+            }
+
+            // Dynamic scaling for very small viewports
+            function adjustForViewport() {
+                const contentWrapper = document.querySelector('.content-wrapper');
+                const vh = window.innerHeight;
+
+                if (vh < 500) {
+                    contentWrapper.style.transform = 'scale(0.7)';
+                } else if (vh < 600) {
+                    contentWrapper.style.transform = 'scale(0.8)';
+                } else {
+                    contentWrapper.style.transform = 'scale(1)';
+                }
+            }
+
+            // Initial adjustment and on resize
+            adjustForViewport();
+            window.addEventListener('resize', adjustForViewport);
+        });
+    </script>
+</body>
+
+</html>
